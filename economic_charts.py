@@ -12,8 +12,16 @@ class Val:
     def __init__(self, year, val):
         ""
 
+def fetch(subject_code, line):        
+    return list(filter(lambda c: c[2] == subject, line))
+
 if __name__ == '__main__':
+    b=[] 
+    ngdp_d=[]
     with open('weoreptc.tsv') as f:
-        for r in f.readlines():
-            print(r.split('\t')[:-1])
+        a= [l.split('\t')[:-1] for l in f.readlines()]
+        b=list(filter(lambda x: x[9] != '', a))
+        ngdp_d = list(filter(lambda x: x[2] == 'NGDP_D', b))
+#        for r in f.readlines(:
+#            print(len(r.split('\t')[:-1]))
 
