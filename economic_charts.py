@@ -6,6 +6,15 @@ class Country:
         self.country = country
         self.weo_subjects = weo_subjects
 
+    def create_gdp_constant_price(self, year):
+
+        ngdp_d = [a for a in  list(filter(lambda e: e.code == 'NGDP_D', self.weo_subjects))[0].y_val if a.year == year][0]
+        ngdpd = list(filter(lambda e: e.code == 'NGDPD', self.weo_subjects))[0]
+
+        return ngdp_d
+
+
+
 class WeoSubject: 
     def __init__(self, code, y_val, unit, scale):
         self.code = code
