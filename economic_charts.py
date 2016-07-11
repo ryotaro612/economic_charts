@@ -21,12 +21,27 @@ class Country:
         print(ngdp_d.val)
         return ngdpd
 
+    def gdp_constant_usscale_calculable(year):
+        return false
 
+    def val_defined(self, subject_code, year):
+        subject = get_subject(subject_code) 
+        val = [val.val for val in subject.vals if val.year == year][0]
+        return val != '' and val != 'n/a'
+    """
+    def ngdpd_defined(self, year):
+        ngdpd = get_subject('NGDPD')
+        val = [val.val  for val in ngdpd.vals if val.year == year ][0]
+        return val != '' and val != 'n/a'
+    """
+    def get_subject(self, subject_code):
+        "WeoSubject"
+        return list(filter(lambda subject: subject.code == subject_code, self.weo_subjects))[0]
 
 class WeoSubject: 
-    def __init__(self, code, y_val, unit, scale):
+    def __init__(self, code, vals, unit, scale):
         self.code = code
-        self.y_val = y_val
+        self.vals = vals
         self.unit = unit
         self.scale = scale
 
