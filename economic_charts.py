@@ -7,11 +7,19 @@ class Country:
         self.weo_subjects = weo_subjects
 
     def create_gdp_constant_price(self, year):
+        # deflator
+        ngdp_d = [a for a in list(filter(lambda e: e.code == 'NGDP_D', self.weo_subjects))[0].y_val if a.year == year][0]
 
-        ngdp_d = [a for a in  list(filter(lambda e: e.code == 'NGDP_D', self.weo_subjects))[0].y_val if a.year == year][0]
-        ngdpd = list(filter(lambda e: e.code == 'NGDPD', self.weo_subjects))[0]
+        ngdpd_sub = list(filter(lambda e: e.code == 'NGDPD', self.weo_subjects))[0]
+        scale = ngdpd_sub.scale
+        unit = ngdpd_sub.unit
+        ngdpd = [e.val for  e in ngdpd_sub.y_val if  e.year == year ][0]
 
-        return ngdp_d
+        print(self.country)
+        print(scale)
+        print(unit)
+        print(ngdp_d.val)
+        return ngdpd
 
 
 
