@@ -5,22 +5,7 @@ class Country:
     def __init__(self, country, weo_subjects):
         self.country = country
         self.weo_subjects = weo_subjects
-    """ 
-    def create_gdp_constant_price(self, year):
-        # deflator
-        ngdp_d = [a for a in list(filter(lambda e: e.code == 'NGDP_D', self.weo_subjects))[0].y_val if a.year == year][0]
 
-        ngdpd_sub = list(filter(lambda e: e.code == 'NGDPD', self.weo_subjects))[0]
-        scale = ngdpd_sub.scale
-        unit = ngdpd_sub.unit
-        ngdpd = [e.val for  e in ngdpd_sub.y_val if  e.year == year ][0]
-
-        print(self.country)
-        print(scale)
-        print(unit)
-        print(ngdp_d.val)
-        return ngdpd
-    """
     def val_defined(self, subject_code, year):
         val = self.get_val(subject_code, year)
         return val != '' and val != 'n/a'
@@ -32,6 +17,11 @@ class Country:
     def get_subject(self, subject_code):
         "WeoSubject"
         return list(filter(lambda subject: subject.code == subject_code, self.weo_subjects))[0]
+
+    def get_scale(self, subject_code):
+        return self.get_subject(subject_code).scale
+    def get_unit(self, subject_code):
+        return self.get_subject(subject_code).unit
 
 class WeoSubject: 
     def __init__(self, code, vals, unit, scale):
