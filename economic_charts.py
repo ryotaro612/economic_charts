@@ -51,10 +51,12 @@ def create_ngdp_d(line):
     return WeoSubject(code, [Val(a[1], line[a[0]])  for a in zip(range(9,46), range(1980, 2017))], unit, scale) 
 
 if __name__ == '__main__':
-
+    import re
     with open('weoreptc.tsv') as f:
         lines = [l.split('\t')[:-1] for l in f.readlines()[1:]]
         filled_lines = list(filter(lambda x: x[9] != '', lines))
         subjects = [(s[3], create_subject(s)) for s in filled_lines]
         countries= [a for a in set([a[0] for a in subjects])]
         country_subs = list(map(lambda country: Country(country, list(map(lambda x: x[1], filter(lambda s: s[0] == country, subjects)))), countries))
+
+        # [(c.country, float(re.sub(r',','',c.get_val('NGDPD', 2016)))) for c in country_subs if c.get_val('NGDPD',2016) != 'n/a']
