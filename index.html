@@ -92,7 +92,7 @@ d3.csv("d.csv", type, function(error, data) {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
-      //
+      // rotete text
       .selectAll("text")  
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
@@ -112,7 +112,9 @@ d3.csv("d.csv", type, function(error, data) {
   bar.append("rect")
       .attr("y", function(d) { return y( Math.max(d.start, d.end) ); })
       .attr("height", function(d) { return Math.abs( y(d.start) - y(d.end) ); })
-      .attr("width", x.rangeBand());
+      .attr("width", x.rangeBand())
+      .append("title").text(function(d) {return d.value}) 
+      ;
 
   bar.append("text")
       .attr("x", x.rangeBand() / 2)
